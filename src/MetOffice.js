@@ -41,7 +41,6 @@ const MetOffice = () => {
     return(
         <>
             <div>
-                {keyList}
                 {dayCards}
             </div>
         </>
