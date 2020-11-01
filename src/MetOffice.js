@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import DayCard from './DayCard'
 
-const MetOffice = () => {
+const MetOffice = ({getTodaysWeather}) => {
 
     const [weatherData, setWeatherData] = useState()
     const [locationID, setLocationId] = useState(3166)
@@ -11,18 +11,9 @@ const MetOffice = () => {
     
     let keyList, dayCards;
     if(!weatherData){} else {
-    keyList =
-        weatherData.Wx.Param.map(( a ) => {
-            return (
-                <>
-                    <h3> {a.$} </h3>
-                    <p> {a.name} </p>
-                </>
-            )
-        });
     dayCards = 
         weatherData.DV.Location.Period.map((day) => {
-           return( <DayCard day={day} /> )
+           return( <DayCard key={day.Rep.$} day={day} /> )
         })
     }
 
@@ -30,7 +21,11 @@ const MetOffice = () => {
         const result = await axios(
             url(locationID, process.env.REACT_APP_API_KEY)
         )
-        setWeatherData(result.data.SiteRep)
+        setWeatherData(result.data.SiteRep);
+        
+        getTodaysWeather(weatherData.DV.Location.Period[0].Rep[weatherData.DV.Location.Period[0].Rep.map(function (e) {
+            return e.$ }).indexOf("900")
+    ])
     }, [])
 
     if(!weatherData){

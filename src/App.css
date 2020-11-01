@@ -67,8 +67,9 @@
 .card-details:hover{
   z-index: 1;
   transform: translateY(12px) translateX(-15px) rotate(1deg);
-  background-color: #ace8f8ee;
-  color: rgb(78, 75, 75);
+  background-color: rgba(21, 60, 97, 0.938);
+  color: white;
   font-weight: bold;
   min-width: 150px;
+  text-align: center;
 }

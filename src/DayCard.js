@@ -39,7 +39,7 @@ const DayCard = ({day}) => {
     const weatherByTime = day.Rep.map(( time ) => {
         return (
             <>
-                <div className="card-details">
+                <div className="card-details" key={time.T}>
                     <h4>{(0 + time.$)/60}:00</h4>
                     <p>{weatherTypeReference[time.W]}</p>
                     <p> Temperature: {time.T}</p>
