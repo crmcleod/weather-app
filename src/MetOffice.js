@@ -7,7 +7,7 @@ const MetOffice = () => {
     const [weatherData, setWeatherData] = useState()
     const [locationID, setLocationId] = useState(3166)
 
-    const url = (locationID, apiKey) => `http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/${locationID}?res=3hourly&key=${apiKey}`
+    const url = (locationID, apiKey) => `//datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/${locationID}?res=3hourly&key=${apiKey}`
     
     let keyList, dayCards;
     if(!weatherData){} else {
