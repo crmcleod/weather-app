@@ -87,3 +87,19 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px 1px black;
 }
+@keyframes pulse {
+  0%, 100%{
+    transform: scale(1);
+    filter: blur(0px);
+
+  }
+  20%{
+    transform: scale(1.2);
+    filter: blur(1px);
+    color: darkblue;
+  }
+}
+#loading{
+  animation: pulse 1s infinite;
+  text-align: center;
+}

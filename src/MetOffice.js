@@ -4,7 +4,7 @@ import DayCard from './DayCard'
 
 const MetOffice = ({
     getTodaysWeather, 
-    locations, setLocations, locationKey}) => {
+    locations, setLocations, locationKey, handleSetKey}) => {
 
     const [weatherData, setWeatherData] = useState();
     const [locationID, setLocationId] = useState(locationKey);
@@ -12,7 +12,7 @@ const MetOffice = ({
 
     useEffect( async () => {
         setLocationId(locationKey)
-        const url = (locationID, apiKey) => `//datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/${locationID}?res=3hourly&key=${apiKey}`
+        const url = (locationID, apiKey) => `http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/${locationID}?res=3hourly&key=${apiKey}`
         const result = await axios( url(locationID, process.env.REACT_APP_API_KEY) )
         const locations = await axios(url('sitelist', process.env.REACT_APP_API_KEY))
 
@@ -29,6 +29,7 @@ const MetOffice = ({
         setLocations(adjustedLocations);
         getTodaysWeather({metOfficeToday: result.data.SiteRep.DV.Location.Period[0].Rep[result.data.SiteRep.DV.Location.Period[0].Rep.map(function (e) {
         return e.$ }).indexOf("720")]})
+        console.log(result)
     }, [locationID])
 
     let dayCards;
@@ -41,16 +42,17 @@ const MetOffice = ({
 
     const handleClick = () => {
         setLocationId(locationKey)
+        handleSetKey()
     }
     if(!weatherData){
         return(
-            <p> ...loading</p>
+            <h2 id="loading"> ...loading...</h2>
         )
     }
     return(
         <>
             <div>
-                <button onClick={handleClick}>Re-render</button>
+                <button onMouseDown={handleClick} onMouseLeave={handleClick}>Re-render</button>
                 {dayCards}
             </div>
         </>

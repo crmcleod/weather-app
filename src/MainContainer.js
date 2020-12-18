@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import DayCard from './DayCard'
 import MetCardToday from './MetCardToday'
 import MetOffice from './MetOffice'
+import OpenWeatherMap from './OpenWeatherMap'
 
 const MainContainer = () => {
 
@@ -14,7 +15,7 @@ const MainContainer = () => {
     const handleLocationChange = (e) => {
         setLocationInput(e.target.value)}
 
-    const handleSetKey = (func) => {
+    const handleSetKey = () => {
         setLocationKey(locations[locations.findIndex(function(location) {
             return location.location == locationInput })].id)
 
@@ -28,7 +29,7 @@ const MainContainer = () => {
                 <option value={location.location} key={location.id}>{location.location}</option>)
     })}
 
-   const getTodaysWeather = (weather) => {
+   const getTodaysWeather = (weather, blah) => {
         setTodaysWeather(weather)
    }
 
@@ -40,12 +41,11 @@ const MainContainer = () => {
                 <datalist id="location-input" value={locationInput}  placeholder="Choose location...">
                     {sortedLocationList}
                 </datalist>
-                <button id="set-location-key" onClick={handleSetKey} >Go!</button>
+                {/* <button id="set-location-key" 
+                onClick={handleSetKey} >Go!</button> */}
             </label>
             <MetCardToday data={todaysWeather.metOfficeToday} />
-            <MetOffice
-            getTodaysWeather={getTodaysWeather} 
-            locations={locations} setLocations={setLocations} locationKey={locationKey} />
+            <MetOffice handleSetKey={handleSetKey} getTodaysWeather={getTodaysWeather} locations={locations} setLocations={setLocations} locationKey={locationKey} />
         </>
     )
 
